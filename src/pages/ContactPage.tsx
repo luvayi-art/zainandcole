@@ -40,7 +40,10 @@ const ContactPage = () => {
   return (
     <div className="font-roboto">
       {/* Contact Header */}
-      <section className="bg-brown-dark text-white py-16">
+      <section 
+        className="bg-brown-dark text-white py-16 bg-cover bg-center bg-blend-overlay bg-opacity-70"
+        style={{ backgroundImage: "url('/lovable-uploads/76090898-cd00-471c-8c3e-d5bca265976c.png')" }}
+      >
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
           <p className="text-lg max-w-2xl mx-auto">
@@ -50,7 +53,7 @@ const ContactPage = () => {
       </section>
 
       {/* Contact Information */}
-      <section className="py-16">
+      <section className="py-16 bg-opacity-95 bg-cream">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row gap-12">
             {/* Contact Details */}

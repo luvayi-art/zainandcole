@@ -72,7 +72,9 @@ const CartPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 font-roboto">
+    <div 
+      className="min-h-screen py-12 font-roboto bg-cream bg-opacity-40 bg-pattern"
+    >
       <div className="container mx-auto px-4">
         <h1 className="text-3xl font-bold text-center text-brown mb-12">Your Shopping Cart</h1>
         

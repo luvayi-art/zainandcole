@@ -20,7 +20,7 @@ const StoryPage = () => {
               <div className="relative">
                 <div className="hexagon overflow-hidden w-full h-[400px] md:h-[500px]">
                   <img 
-                    src="/lovable-uploads/1199c9e6-4882-4879-9e6e-90b9c71bae56.png" 
+                    src="/lovable-uploads/499133cc-c5a7-4d55-81c9-20b1876853cc.png" 
                     alt="Mr. & Mrs. Ochieng" 
                     className="w-full h-full object-cover"
                   />

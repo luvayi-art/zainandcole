@@ -58,9 +58,12 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cream font-roboto py-12">
+    <div 
+      className="min-h-screen font-roboto py-12 bg-cover bg-center" 
+      style={{ backgroundImage: "url('/lovable-uploads/acdeb040-c751-4540-88f4-77752d3836cc.png')" }}
+    >
       <div className="container mx-auto px-4">
-        <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="max-w-md mx-auto bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden backdrop-blur-sm">
           <div className="p-8">
             <h2 className="text-2xl font-bold text-center text-brown mb-6">
               {isLogin ? 'Login to Your Account' : 'Create an Account'}

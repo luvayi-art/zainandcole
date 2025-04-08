@@ -6,6 +6,7 @@ import { fetchProducts, fetchCategories, insertProducts } from '@/services/produ
 import { toast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
 
 const ShopPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -26,7 +27,24 @@ const ShopPage = () => {
     // Check if the current user is an admin
     const checkAdminStatus = async () => {
       if (user) {
-        setIsAdmin(true); // For testing, setting everyone as admin
+        try {
+          const { data, error } = await supabase
+            .from('profiles')
+            .select('is_admin')
+            .eq('id', user.id)
+            .single();
+          
+          if (error) {
+            console.error("Error checking admin status:", error);
+            return;
+          }
+          
+          setIsAdmin(data?.is_admin || false);
+        } catch (error) {
+          console.error("Error checking admin status:", error);
+        }
+      } else {
+        setIsAdmin(false);
       }
     };
 
@@ -59,7 +77,7 @@ const ShopPage = () => {
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-center text-brown mb-8">Our Collection</h1>
       
-      {/* Admin Controls */}
+      {/* Admin Controls - Only visible to admin users */}
       {isAdmin && (
         <div className="mb-8 p-4 border border-brown rounded-md bg-white/50">
           <h2 className="text-xl font-semibold text-brown-dark mb-2">Admin Controls</h2>
