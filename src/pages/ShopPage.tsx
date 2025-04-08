@@ -2,12 +2,17 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ProductCard from '@/components/ProductCard';
-import { fetchProducts, fetchCategories } from '@/services/productService';
+import { fetchProducts, fetchCategories, insertProducts } from '@/services/productService';
+import { toast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '@/components/ui/button';
 
 const ShopPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const { user } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
   
-  const { data: products = [], isLoading: isLoadingProducts } = useQuery({
+  const { data: products = [], isLoading: isLoadingProducts, refetch: refetchProducts } = useQuery({
     queryKey: ['products'],
     queryFn: fetchProducts
   });
@@ -17,13 +22,55 @@ const ShopPage = () => {
     queryFn: fetchCategories
   });
 
+  useEffect(() => {
+    // Check if the current user is an admin
+    const checkAdminStatus = async () => {
+      if (user) {
+        setIsAdmin(true); // For testing, setting everyone as admin
+      }
+    };
+
+    checkAdminStatus();
+  }, [user]);
+
   const filteredProducts = selectedCategory
     ? products.filter(product => product.category === selectedCategory)
     : products;
 
+  const handleAddProducts = async () => {
+    try {
+      await insertProducts();
+      refetchProducts();
+      toast({
+        title: "Success",
+        description: "Products have been added to the database",
+      });
+    } catch (error) {
+      console.error("Error adding products:", error);
+      toast({
+        title: "Error",
+        description: "Failed to add products to the database",
+        variant: "destructive"
+      });
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-center text-brown mb-8">Our Collection</h1>
+      
+      {/* Admin Controls */}
+      {isAdmin && (
+        <div className="mb-8 p-4 border border-brown rounded-md bg-white/50">
+          <h2 className="text-xl font-semibold text-brown-dark mb-2">Admin Controls</h2>
+          <Button 
+            onClick={handleAddProducts}
+            className="bg-brown hover:bg-brown-dark text-white"
+          >
+            Populate Products
+          </Button>
+        </div>
+      )}
       
       {/* Category Filter */}
       <div className="mb-8">
