@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import { toast } from '../hooks/use-toast';
 
 const LoginPage = () => {
@@ -13,12 +14,21 @@ const LoginPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const navigate = useNavigate();
+  const { signIn, signUp, user } = useAuth();
+
+  // If user is already logged in, redirect to homepage
+  if (user) {
+    navigate('/');
+    return null;
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!isLogin && formData.password !== formData.confirmPassword) {
@@ -32,16 +42,19 @@ const LoginPage = () => {
 
     setIsSubmitting(true);
 
-    // Simulate authentication process
-    setTimeout(() => {
-      toast({
-        title: isLogin ? "Login Successful" : "Registration Successful",
-        description: isLogin 
-          ? "Welcome back to Zain & Cole!" 
-          : "Your account has been created successfully!",
-      });
+    try {
+      if (isLogin) {
+        await signIn(formData.email, formData.password);
+        navigate('/');
+      } else {
+        await signUp(formData.email, formData.password, formData.name);
+        // Stay on login page after signup for verification message
+      }
+    } catch (error) {
+      // Error handling is done in the auth context
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (

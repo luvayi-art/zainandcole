@@ -1,10 +1,19 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingCart, Menu, X, User } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShoppingCart, Menu, X, User, LogOut } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+    setIsMenuOpen(false);
+  };
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -33,9 +42,21 @@ const Navbar = () => {
 
           {/* Action Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/login" className="p-2 rounded-full hover:bg-cream transition-colors">
-              <User size={20} className="text-brown-dark" />
-            </Link>
+            {user ? (
+              <div className="flex items-center space-x-3">
+                <span className="text-sm text-brown-dark">Hi, {user.user_metadata.first_name || 'User'}</span>
+                <button 
+                  onClick={handleSignOut}
+                  className="p-2 rounded-full hover:bg-cream transition-colors"
+                >
+                  <LogOut size={20} className="text-brown-dark" />
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" className="p-2 rounded-full hover:bg-cream transition-colors">
+                <User size={20} className="text-brown-dark" />
+              </Link>
+            )}
             <Link to="/cart" className="p-2 rounded-full hover:bg-cream transition-colors relative">
               <ShoppingCart size={20} className="text-brown-dark" />
               <span className="absolute -top-1 -right-1 bg-brown text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -94,13 +115,28 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <Link 
-              to="/login" 
-              className="text-brown-dark hover:text-brown transition-colors px-4 py-2 rounded-md flex items-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <User size={18} className="mr-2" /> Account
-            </Link>
+            
+            {user ? (
+              <>
+                <div className="px-4 py-2 text-brown-dark">
+                  Logged in as: {user.user_metadata.first_name || user.email}
+                </div>
+                <button 
+                  onClick={handleSignOut}
+                  className="text-brown-dark hover:text-brown transition-colors px-4 py-2 rounded-md flex items-center"
+                >
+                  <LogOut size={18} className="mr-2" /> Logout
+                </button>
+              </>
+            ) : (
+              <Link 
+                to="/login" 
+                className="text-brown-dark hover:text-brown transition-colors px-4 py-2 rounded-md flex items-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <User size={18} className="mr-2" /> Login / Register
+              </Link>
+            )}
           </div>
         </div>
       )}
