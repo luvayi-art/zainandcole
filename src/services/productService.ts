@@ -1,6 +1,17 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import { Product } from "../components/ProductCard";
+import { Tables } from "@/integrations/supabase/types";
+
+export type Product = {
+  id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  image: string | null;
+  category: string | null;
+  stock?: number;
+  featured?: boolean;
+};
 
 export async function fetchProducts(): Promise<Product[]> {
   const { data, error } = await supabase
@@ -13,23 +24,23 @@ export async function fetchProducts(): Promise<Product[]> {
       image_url,
       stock,
       featured,
-      categories(name)
-    `)
-    .order('created_at', { ascending: false });
+      categories (name)
+    `);
 
   if (error) {
     console.error("Error fetching products:", error);
     throw error;
   }
 
-  // Transform the Supabase data to match our Product interface
   return (data || []).map(item => ({
     id: item.id,
     name: item.name,
     description: item.description || '',
     price: item.price,
-    image: item.image_url || "/placeholder.svg", // Fallback to placeholder if no image
+    image: item.image_url || "/placeholder.svg",
     category: item.categories?.name || 'Uncategorized',
+    stock: item.stock,
+    featured: item.featured
   }));
 }
 
@@ -44,7 +55,7 @@ export async function fetchProductById(id: string): Promise<Product | null> {
       image_url,
       stock,
       featured,
-      categories(name)
+      categories (name)
     `)
     .eq('id', id)
     .single();
@@ -67,6 +78,8 @@ export async function fetchProductById(id: string): Promise<Product | null> {
     price: data.price,
     image: data.image_url || "/placeholder.svg",
     category: data.categories?.name || 'Uncategorized',
+    stock: data.stock,
+    featured: data.featured
   };
 }
 
@@ -107,7 +120,7 @@ export async function fetchProductsByCategory(category: string): Promise<Product
       image_url,
       stock,
       featured,
-      categories(name)
+      categories (name)
     `)
     .eq('category_id', categoryData.id);
 
@@ -123,5 +136,7 @@ export async function fetchProductsByCategory(category: string): Promise<Product
     price: item.price,
     image: item.image_url || "/placeholder.svg",
     category: item.categories?.name || 'Uncategorized',
+    stock: item.stock,
+    featured: item.featured
   }));
 }
