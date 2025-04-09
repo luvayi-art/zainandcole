@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 
 const StoryPage = () => {
@@ -8,8 +7,8 @@ const StoryPage = () => {
       <section className="py-24 relative">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/lovable-uploads/1199c9e6-4882-4879-9e6e-90b9c71bae56.png" 
-            alt="Beautiful African landscape" 
+            src="/lovable-uploads/1fb0fe95-715c-45a1-8873-25f45b23f626.png" 
+            alt="African landscape background" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -28,7 +27,7 @@ const StoryPage = () => {
               <div className="relative">
                 <div className="hexagon overflow-hidden w-full h-[400px] md:h-[500px]">
                   <img 
-                    src="/lovable-uploads/350b2e10-569e-44dd-80bb-73fa948add60.png" 
+                    src="/lovable-uploads/725f40a4-c24b-43ac-a4c0-dfe99958933b.png" 
                     alt="Mr. & Mrs. Ochieng" 
                     className="w-full h-full object-cover"
                   />
