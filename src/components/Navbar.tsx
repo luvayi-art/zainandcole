@@ -1,13 +1,44 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Menu, X, User, LogOut } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCartCount = async () => {
+      if (user) {
+        // Get cart count from database for logged in users
+        const { data, error } = await supabase
+          .from('cart_items')
+          .select('id', { count: 'exact' })
+          .eq('user_id', user.id);
+          
+        if (!error) {
+          setCartCount(data.length);
+        }
+      } else {
+        // Get cart count from local storage for non-logged in users
+        const localCartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+        setCartCount(localCartItems.length);
+      }
+    };
+    
+    fetchCartCount();
+    
+    // Set up listener for changes to cart
+    window.addEventListener('storage', fetchCartCount);
+    
+    return () => {
+      window.removeEventListener('storage', fetchCartCount);
+    };
+  }, [user]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -60,7 +91,7 @@ const Navbar = () => {
             <Link to="/cart" className="p-2 rounded-full hover:bg-cream transition-colors relative">
               <ShoppingCart size={20} className="text-brown-dark" />
               <span className="absolute -top-1 -right-1 bg-brown text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                0
+                {cartCount}
               </span>
             </Link>
           </div>
@@ -70,7 +101,7 @@ const Navbar = () => {
             <Link to="/cart" className="p-2 mr-2 rounded-full hover:bg-cream transition-colors relative">
               <ShoppingCart size={20} className="text-brown-dark" />
               <span className="absolute -top-1 -right-1 bg-brown text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                0
+                {cartCount}
               </span>
             </Link>
             <button

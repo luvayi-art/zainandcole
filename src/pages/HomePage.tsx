@@ -1,13 +1,25 @@
 
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import HeroSlider from '../components/HeroSlider';
 import ProductCard from '../components/ProductCard';
-import { products, getCategories } from '../data/products';
+import { fetchProducts, fetchCategories } from '@/services/productService';
 import { MapPin, Award, Gift, Truck } from 'lucide-react';
 
 const HomePage = () => {
-  const categories = getCategories();
-  const featuredProducts = products.slice(0, 4);
+  // Fetch categories and products from the database
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories
+  });
+  
+  const { data: products = [] } = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProducts
+  });
+  
+  // Get 4 featured or random products
+  const featuredProducts = products.length > 0 ? products.slice(0, 4) : [];
 
   return (
     <div className="font-roboto">
@@ -66,7 +78,7 @@ const HomePage = () => {
                 className="group relative overflow-hidden rounded-lg shadow-lg h-64"
               >
                 <img 
-                  src={products.find(p => p.category === category)?.image} 
+                  src={products.find(p => p.category === category)?.image || '/placeholder.svg'} 
                   alt={category}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
