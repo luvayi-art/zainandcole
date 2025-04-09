@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Menu, X, User, LogOut } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
+import Logo from './Logo';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,7 +14,6 @@ const Navbar = () => {
   useEffect(() => {
     const fetchCartCount = async () => {
       if (user) {
-        // Get cart count from database for logged in users
         const { data, error } = await supabase
           .from('cart_items')
           .select('id', { count: 'exact' })
@@ -24,7 +23,6 @@ const Navbar = () => {
           setCartCount(data.length);
         }
       } else {
-        // Get cart count from local storage for non-logged in users
         const localCartItems = JSON.parse(localStorage.getItem('cart') || '[]');
         setCartCount(localCartItems.length);
       }
@@ -32,7 +30,6 @@ const Navbar = () => {
     
     fetchCartCount();
     
-    // Set up listener for changes to cart
     window.addEventListener('storage', fetchCartCount);
     
     return () => {
@@ -50,12 +47,8 @@ const Navbar = () => {
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <h1 className="text-2xl font-bold text-brown">Zain & Cole</h1>
-          </Link>
+          <Logo />
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
             <Link to="/" className="text-brown-dark hover:text-brown transition-colors font-medium">
               Home
@@ -71,7 +64,6 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Action Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {user ? (
               <div className="flex items-center space-x-3">
@@ -96,7 +88,6 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <Link to="/cart" className="p-2 mr-2 rounded-full hover:bg-cream transition-colors relative">
               <ShoppingCart size={20} className="text-brown-dark" />
@@ -114,7 +105,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t py-4 animate-slide-in">
           <div className="container mx-auto px-4 flex flex-col space-y-4">

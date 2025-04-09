@@ -4,11 +4,19 @@ import { Link } from 'react-router-dom';
 const StoryPage = () => {
   return (
     <div className="font-roboto">
-      {/* Hero Section */}
-      <section className="bg-brown-dark text-white py-24 relative">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Story</h1>
-          <p className="text-xl max-w-3xl mx-auto">Meet the founders who are bridging cultures and craftsmanship from Kisumu to Canada</p>
+      {/* Hero Section with Background Image */}
+      <section className="py-24 relative">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/lovable-uploads/1199c9e6-4882-4879-9e6e-90b9c71bae56.png" 
+            alt="Beautiful African landscape" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">Our Story</h1>
+          <p className="text-xl max-w-3xl mx-auto text-white">Meet the founders who are bridging cultures and craftsmanship from Kisumu to Canada</p>
         </div>
       </section>
 
@@ -20,7 +28,7 @@ const StoryPage = () => {
               <div className="relative">
                 <div className="hexagon overflow-hidden w-full h-[400px] md:h-[500px]">
                   <img 
-                    src="/lovable-uploads/499133cc-c5a7-4d55-81c9-20b1876853cc.png" 
+                    src="/lovable-uploads/350b2e10-569e-44dd-80bb-73fa948add60.png" 
                     alt="Mr. & Mrs. Ochieng" 
                     className="w-full h-full object-cover"
                   />

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trash2, Plus, Minus } from 'lucide-react';
@@ -30,7 +29,6 @@ const CartPage = () => {
       setIsLoading(true);
       try {
         if (user) {
-          // Fetch cart items from database for logged in users
           const { data, error } = await supabase
             .from('cart_items')
             .select(`
@@ -47,7 +45,6 @@ const CartPage = () => {
 
           if (error) throw error;
 
-          // Transform the data to match our CartItem structure
           const transformedData = data.map((item: any) => ({
             id: item.id,
             quantity: item.quantity,
@@ -62,7 +59,6 @@ const CartPage = () => {
 
           setCartItems(transformedData);
         } else {
-          // Get cart items from local storage for non-logged in users
           const localCartItems = JSON.parse(localStorage.getItem('cart') || '[]');
           setCartItems(localCartItems);
         }
@@ -86,7 +82,6 @@ const CartPage = () => {
     
     try {
       if (user && item.id) {
-        // Update quantity in database
         const { error } = await supabase
           .from('cart_items')
           .update({ quantity: newQuantity })
@@ -94,7 +89,6 @@ const CartPage = () => {
           
         if (error) throw error;
       } else {
-        // Update quantity in local storage
         const updatedItems = cartItems.map(cartItem => 
           cartItem.product_id === item.product_id 
             ? { ...cartItem, quantity: newQuantity } 
@@ -105,7 +99,6 @@ const CartPage = () => {
         setCartItems(updatedItems);
       }
       
-      // Update local state
       setCartItems(prevItems => 
         prevItems.map(cartItem => 
           cartItem.product_id === item.product_id 
@@ -126,7 +119,6 @@ const CartPage = () => {
   const handleRemoveItem = async (item: CartItem) => {
     try {
       if (user && item.id) {
-        // Remove from database
         const { error } = await supabase
           .from('cart_items')
           .delete()
@@ -134,13 +126,11 @@ const CartPage = () => {
           
         if (error) throw error;
       } else {
-        // Remove from local storage
         const updatedItems = cartItems.filter(cartItem => cartItem.product_id !== item.product_id);
         localStorage.setItem('cart', JSON.stringify(updatedItems));
         setCartItems(updatedItems);
       }
       
-      // Update local state
       setCartItems(prevItems => prevItems.filter(cartItem => cartItem.product_id !== item.product_id));
       
       toast({
@@ -158,21 +148,7 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    if (!user) {
-      // Redirect to login if not logged in
-      toast({
-        title: 'Login Required',
-        description: 'Please log in to proceed to checkout',
-      });
-      navigate('/login');
-      return;
-    }
-    
-    // Proceed to checkout
-    toast({
-      title: 'Proceeding to checkout',
-      description: 'This feature is coming soon!'
-    });
+    navigate('/payment');
   };
 
   const calculateTotal = () => {
@@ -185,6 +161,12 @@ const CartPage = () => {
   return (
     <div 
       className="min-h-screen py-12 font-roboto bg-cream bg-opacity-40 bg-pattern"
+      style={{
+        backgroundImage: `url('/lovable-uploads/066bc7a7e-130f-44cc-8e22-63d8edb4165c.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundBlendMode: 'overlay'
+      }}
     >
       <div className="container mx-auto px-4">
         <h1 className="text-3xl font-bold text-center text-brown mb-12">Your Shopping Cart</h1>
@@ -195,9 +177,8 @@ const CartPage = () => {
           </div>
         ) : cartItems.length > 0 ? (
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Cart Items */}
             <div className="md:col-span-2">
-              <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div className="bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
                 <div className="p-6">
                   <h2 className="text-lg font-semibold text-brown-dark mb-4">Items ({cartItems.length})</h2>
                   <div className="divide-y">
@@ -250,9 +231,8 @@ const CartPage = () => {
               </div>
             </div>
             
-            {/* Order Summary */}
             <div>
-              <div className="bg-white rounded-lg shadow-md overflow-hidden sticky top-24">
+              <div className="bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden sticky top-24">
                 <div className="p-6">
                   <h2 className="text-lg font-semibold text-brown-dark mb-4">Order Summary</h2>
                   <div className="space-y-3 mb-4">
@@ -275,7 +255,7 @@ const CartPage = () => {
                     onClick={handleCheckout}
                     className="w-full bg-brown hover:bg-brown-dark text-white"
                   >
-                    {user ? 'Proceed to Checkout' : 'Login to Checkout'}
+                    Proceed to Checkout
                   </Button>
                   <div className="mt-4 text-center">
                     <Link to="/shop" className="text-brown hover:text-brown-dark transition-colors">
@@ -287,7 +267,7 @@ const CartPage = () => {
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow-md p-8 text-center max-w-md mx-auto">
+          <div className="bg-white bg-opacity-90 rounded-lg shadow-md p-8 text-center max-w-md mx-auto">
             <h2 className="text-xl text-brown-dark mb-4">Your cart is empty</h2>
             <p className="text-gray-600 mb-6">Looks like you haven't added any products to your cart yet.</p>
             <Link 
