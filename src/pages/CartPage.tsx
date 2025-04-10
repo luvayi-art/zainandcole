@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trash2, Plus, Minus } from 'lucide-react';
@@ -23,6 +24,11 @@ const CartPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  // Custom event to notify cart updates
+  const notifyCartUpdated = () => {
+    window.dispatchEvent(new Event('cartUpdated'));
+  };
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -106,6 +112,8 @@ const CartPage = () => {
             : cartItem
         )
       );
+      
+      notifyCartUpdated(); // Notify cart update
     } catch (error) {
       console.error('Error updating quantity:', error);
       toast({
@@ -132,6 +140,8 @@ const CartPage = () => {
       }
       
       setCartItems(prevItems => prevItems.filter(cartItem => cartItem.product_id !== item.product_id));
+      
+      notifyCartUpdated(); // Notify cart update
       
       toast({
         title: 'Item removed',

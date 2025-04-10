@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Menu, X, User, LogOut } from 'lucide-react';
@@ -30,10 +31,13 @@ const Navbar = () => {
     
     fetchCartCount();
     
+    // Set up event listener for storage and custom cart updates
     window.addEventListener('storage', fetchCartCount);
+    window.addEventListener('cartUpdated', fetchCartCount);
     
     return () => {
       window.removeEventListener('storage', fetchCartCount);
+      window.removeEventListener('cartUpdated', fetchCartCount);
     };
   }, [user]);
 

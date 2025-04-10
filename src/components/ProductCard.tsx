@@ -24,6 +24,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   
+  // Custom event to notify cart updates
+  const notifyCartUpdated = () => {
+    window.dispatchEvent(new Event('cartUpdated'));
+  };
+  
   const addToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -45,6 +50,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         }
         
         localStorage.setItem('cart', JSON.stringify(cartItems));
+        notifyCartUpdated(); // Notify cart update
+        
         toast({
           title: "Added to cart",
           description: `${product.name} has been added to your cart`,
@@ -86,6 +93,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           if (error) throw error;
         }
+        
+        notifyCartUpdated(); // Notify cart update
         
         toast({
           title: "Added to cart",

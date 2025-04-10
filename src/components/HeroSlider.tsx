@@ -15,7 +15,7 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    image: '/lovable-uploads/350b2e10-569e-44dd-80bb-73fa948add60.png',
+    image: '/lovable-uploads/f48efd3d-0993-4795-8ab5-b480a05ca87d.png',
     title: 'African Elegance',
     subtitle: 'Authentic handcrafted Maasai jewelry and accessories',
     ctaText: 'Shop Collection',
@@ -23,7 +23,7 @@ const slides: Slide[] = [
   },
   {
     id: 2,
-    image: '/lovable-uploads/76090898-cd00-471c-8c3e-d5bca265976c.png',
+    image: '/lovable-uploads/e0a9bac5-4f3d-437b-9138-0d30cc7212e0.png',
     title: 'Cultural Heritage',
     subtitle: 'Celebrating African traditions through fashion',
     ctaText: 'Explore Now',
@@ -31,12 +31,28 @@ const slides: Slide[] = [
   },
   {
     id: 3,
-    image: '/lovable-uploads/099a01c1-5d39-4046-9d92-2d29140b92cf.png',
+    image: '/lovable-uploads/445c44b4-e5e0-4c3c-b0b3-e14250554891.png',
     title: 'Artisan Crafted',
     subtitle: 'Supporting local artisans from Kisumu to Canada',
     ctaText: 'Learn More',
     ctaLink: '/story',
   },
+  {
+    id: 4,
+    image: '/lovable-uploads/eebc7f9b-3e71-43a6-82b0-ae9452a88dd0.png',
+    title: 'Handmade With Love',
+    subtitle: 'Each piece tells a story of tradition and craftsmanship',
+    ctaText: 'Shop Now',
+    ctaLink: '/shop',
+  },
+  {
+    id: 5,
+    image: '/lovable-uploads/44e7db56-d4cf-4cae-b72d-31a02cc365a7.png',
+    title: 'Authentic Designs',
+    subtitle: 'Bringing the spirit of Africa to your wardrobe',
+    ctaText: 'View Collection',
+    ctaLink: '/shop',
+  }
 ];
 
 const HeroSlider = () => {
