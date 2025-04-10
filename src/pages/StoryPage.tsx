@@ -8,7 +8,7 @@ const StoryPage = () => {
       <section className="py-24 relative">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/lovable-uploads/8d5ff46f-32d0-48e2-a1aa-964341f949a6.png" 
+            src="/lovable-uploads/eccc1dd8-3ea3-47bd-af36-5f5fab2eae70.png" 
             alt="African landscape background" 
             className="w-full h-full object-cover"
           />
@@ -28,7 +28,7 @@ const StoryPage = () => {
               <div className="relative">
                 <div className="hexagon overflow-hidden w-full h-[400px] md:h-[500px]">
                   <img 
-                    src="/lovable-uploads/eccc1dd8-3ea3-47bd-af36-5f5fab2eae70.png" 
+                    src="/lovable-uploads/8d5ff46f-32d0-48e2-a1aa-964341f949a6.png" 
                     alt="Mr. & Mrs. Ochieng" 
                     className="w-full h-full object-cover"
                   />
