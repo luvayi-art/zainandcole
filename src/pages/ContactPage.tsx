@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
@@ -100,8 +99,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-lg mb-2">Email Us</h3>
-                    <p className="text-gray-700 mb-1">info@zainandcole.com</p>
-                    <p className="text-gray-700">support@zainandcole.com</p>
+                    <p className="text-gray-700">zainandcole@outlook.com</p>
                   </div>
                 </div>
               </div>

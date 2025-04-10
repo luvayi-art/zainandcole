@@ -15,7 +15,7 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    image: '/lovable-uploads/f48efd3d-0993-4795-8ab5-b480a05ca87d.png',
+    image: '/lovable-uploads/44e7db56-d4cf-4cae-b72d-31a02cc365a7.png',
     title: 'African Elegance',
     subtitle: 'Authentic handcrafted Maasai jewelry and accessories',
     ctaText: 'Shop Collection',
@@ -47,7 +47,7 @@ const slides: Slide[] = [
   },
   {
     id: 5,
-    image: '/lovable-uploads/44e7db56-d4cf-4cae-b72d-31a02cc365a7.png',
+    image: '/lovable-uploads/f48efd3d-0993-4795-8ab5-b480a05ca87d.png',
     title: 'Authentic Designs',
     subtitle: 'Bringing the spirit of Africa to your wardrobe',
     ctaText: 'View Collection',
