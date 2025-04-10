@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 
 const StoryPage = () => {
@@ -7,7 +8,7 @@ const StoryPage = () => {
       <section className="py-24 relative">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/lovable-uploads/1fb0fe95-715c-45a1-8873-25f45b23f626.png" 
+            src="/lovable-uploads/8d5ff46f-32d0-48e2-a1aa-964341f949a6.png" 
             alt="African landscape background" 
             className="w-full h-full object-cover"
           />
@@ -27,7 +28,7 @@ const StoryPage = () => {
               <div className="relative">
                 <div className="hexagon overflow-hidden w-full h-[400px] md:h-[500px]">
                   <img 
-                    src="/lovable-uploads/7f69757e-4d48-4777-a19f-d88e822c3d55.png" 
+                    src="/lovable-uploads/eccc1dd8-3ea3-47bd-af36-5f5fab2eae70.png" 
                     alt="Mr. & Mrs. Ochieng" 
                     className="w-full h-full object-cover"
                   />
@@ -145,7 +146,7 @@ const StoryPage = () => {
             
             <div className="mb-8">
               <img 
-                src="/lovable-uploads/099a01c1-5d39-4046-9d92-2d29140b92cf.png" 
+                src="/lovable-uploads/953968be-535b-45fa-92e0-2de9a1af42b5.png" 
                 alt="Zainab Ochieng" 
                 className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
               />
@@ -160,7 +161,7 @@ const StoryPage = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
+      {/* Call to Action Section */}
       <section className="py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6 text-brown">Join Us on This Journey</h2>
@@ -171,7 +172,8 @@ const StoryPage = () => {
             From Africa to the world,<br />
             With love and purpose,<br />
             Mr. & Mrs. Ochieng<br />
-            Founders of Zain & Cole
+            Founders of Zain & Cole<br />
+            Contact: zainandcole@outlook.com
           </p>
           <Link to="/shop" className="btn-primary">Explore Our Collections</Link>
         </div>
