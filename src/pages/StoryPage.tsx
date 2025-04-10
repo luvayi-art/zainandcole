@@ -10,7 +10,7 @@ const StoryPage = () => {
           <img 
             src="/lovable-uploads/eccc1dd8-3ea3-47bd-af36-5f5fab2eae70.png" 
             alt="African landscape background" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         </div>
@@ -30,7 +30,7 @@ const StoryPage = () => {
                   <img 
                     src="/lovable-uploads/8d5ff46f-32d0-48e2-a1aa-964341f949a6.png" 
                     alt="Mr. & Mrs. Ochieng" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
               </div>
@@ -148,7 +148,7 @@ const StoryPage = () => {
               <img 
                 src="/lovable-uploads/953968be-535b-45fa-92e0-2de9a1af42b5.png" 
                 alt="Zainab Ochieng" 
-                className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
+                className="w-32 h-32 object-cover object-top rounded-full mx-auto mb-4"
               />
             </div>
             
